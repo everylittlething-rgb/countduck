@@ -6,7 +6,7 @@
     <title>計數鴨 - 郵差派遞加班時數計算器</title>
     <style>
         :root {
-            /* 香港郵政主題顏色：深藍、郵政藍與綠色 */
+            /* 香港郵政主題顏色：取自圖片1的深藍、郵政藍與綠色 */
             --primary-dark: #1b264f;
             --primary-blue: #005a9c;
             --primary-green: #009865;
@@ -34,35 +34,13 @@
         }
 
         header {
+            text-align: center;
             padding: 15px 0;
             background: linear-gradient(135deg, var(--primary-dark), var(--primary-blue));
             color: white;
             border-radius: 8px 8px 0 0;
             margin-bottom: 0;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            max-width: 600px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .header-duck-img {
-            height: 120px; /* 調整以適合 */
-            width: auto;
-            display: inline-block;
-            vertical-align: middle;
-            margin-right: 15px;
-        }
-
-        .header-content .text-group {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
         }
 
         header h1 {
@@ -334,14 +312,8 @@
 <body>
 
 <header>
-    <div class="header-content">
-        <!-- 卡通鴨子圖像使用 Base64 編碼直接嵌入 -->
-        <img src="data:image/jpeg;base64, ... [經過壓縮的 image_1.png Base64 數據] ... " alt="計數鴨卡通鴨子徽標" class="header-duck-img">
-        <div class="text-group">
-            <h1>計數鴨</h1>
-            <p>郵差派遞加班時數計算工具</p>
-        </div>
-    </div>
+    <h1>🦆 計數鴨</h1>
+    <p>郵差派遞加班時數計算工具</p>
 </header>
 
 <div class="nav-tabs">
@@ -540,7 +512,7 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- 第 1 行：第幾款廣告 -->
+                <!-- 第 1 行：第幾款廣告 (Header already indicates, but row 1 can be label or merged) -->
                 <tr>
                     <td style="font-weight:bold; background:#f0f4f8;">第1行：廣告編號</td>
                     <td>第1款</td><td>第2款</td><td>第3款</td><td>第4款</td><td>第5款</td>
@@ -824,6 +796,11 @@
         `;
 
         // 建議如何改變小郵包或薄雞實際數量達到 1小時(60分)、1.5小時(90分) 和 2小時(120分) 加班
+        // 現有固定其他部分分值 = totalOT (或者以現有 GroupA + Part4 為基礎進行調整)
+        // 為了達到目標總分鐘數 targetMin，我們看差額：
+        // 差額 diff = targetMin - totalOT
+        // 若改變小郵包 (每件 2 分鐘)：所需增減件數 = diff / 2.0
+        // 若改變薄雞 (處理率為 r.rateLetter)：所需增減件數 = diff * r.rateLetter
         let targets = [60, 90, 120];
         let targetLabels = ["1 小時 (60分鐘)", "1.5 小時 (90分鐘)", "2 小時 (120分鐘)"];
         let recHTML = `<strong>💡 達到特定加班時間的數量調整建議：</strong><br>`;

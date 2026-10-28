@@ -756,9 +756,12 @@
         const actPacket = parseFloat(document.getElementById('actPacket').value) || 0;
         const part3 = (actPacket - r.basePacket) * 2.0;
 
-        // 第 4 部份 (獨立計算：掛號郵件)
+                // 第 4 部份 (獨立計算：掛號郵件，若少於0則當作0)
         const actTrackable = parseFloat(document.getElementById('actTrackable').value) || 0;
-        const part4 = (actTrackable - r.baseTrackable) * 2.5;
+        let part4 = (actTrackable - r.baseTrackable) * 2.5;
+        if (part4 < 0) {
+            part4 = 0;
+        }
 
         // 第 5 部份
         let part5 = 0;
